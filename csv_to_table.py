@@ -31,12 +31,12 @@ def check_csvfile(args):
     return first_line
 
 
-def construct_line(line_data, max_lengths):
-    line = "|"
+def construct_line(line_data, max_lengths, in_between=" "):
+    line = in_between
     for val, m in zip(line_data, max_lengths):
         space_bef = " "*((m - len(val))//2)
         space_after = " "*(m - len(val) - len(space_bef))
-        line += space_bef + val + space_after + "|"
+        line += space_bef + val + space_after + in_between
     return line
 
 def adjust_max_lengths(lst, max_lengths):
@@ -102,9 +102,9 @@ if __name__ == "__main__":
         if args.header is None:
             next(fin)
 
-        print(construct_line(header, max_lengths))
+        print(construct_line(header, max_lengths, in_between="|"))
 
-        print(construct_line(types, max_lengths))
+        print(construct_line(types, max_lengths, in_between="|"))
 
         if args.units is not None:
             adjust_max_lengths(args.units, max_lengths)
